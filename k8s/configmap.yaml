@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: execution-config
+
+# Configuração não sensível. MONGO_URL, JWT_SECRET e NEW_RELIC_LICENSE_KEY ficam
+# no Secret execution-secret, gerado pelo cd.yml.
+data:
+  NODE_ENV: production
+  PORT: "3000"
+  LOG_LEVEL: info
+  SERVICE_NAME: execution-service
