@@ -7,6 +7,8 @@ Microsserviço do **chão de fábrica** da oficina: fila de execução dos mecâ
 | Banco | MongoDB (Atlas M0, database `execution_db`), só deste serviço |
 | Mensageria | RabbitMQ: consome `pagamento.confirmado`; publica `execucao.status_atualizado`, `execucao.finalizada` e `execucao.falhou` |
 | Stack | Node 20, Express 5, mongoose, amqplib, pino, New Relic, Jest + mongodb-memory-server |
+| Observabilidade | New Relic (`oficina-execution`): trace distribuído pela saga, evento `SagaEvento` por evento consumido e logs ligados ao trace ([detalhes](https://github.com/BrunoAmathias/TechChallengerFiap-Application/blob/Dev/docs/observabilidade.md)) |
+| Documentação geral | Visão do sistema, arquitetura e ADRs no [repo Application](https://github.com/BrunoAmathias/TechChallengerFiap-Application/blob/Dev/README.md) |
 
 ## Por que MongoDB aqui
 
@@ -102,16 +104,14 @@ npm run test:coverage   # todos os testes, inclusive integração com MongoDB em
 
 O namespace `execution` e os Secrets `rabbitmq` são criados pelo Terraform do repo `TechChallengerFiap-K8s`; o CD só confere que existem.
 
-### Proteção da branch main
+### Proteção das branches main e Homolog
 
-PR obrigatório com 1 aprovação, check `ci` obrigatório (lint, testes e cobertura mínima de 80%; o Quality Gate do Sonar é verificado no CD, antes do deploy), sem push direto, sem force push. Configuração pela API do GitHub com o script do repo Application:
+Ruleset "Main" do GitHub nas branches `main` e `Homolog`: PR obrigatório, check `ci` obrigatório e com a branch atualizada (lint, testes e cobertura mínima de 80%; o Quality Gate do Sonar é verificado no CD, antes do deploy), sem push direto, force push ou exclusão. A configuração é feita pelo script do repo Application, com um token de administração do repositório:
 
 ```bash
-export GH_TOKEN=<token com permissão de administração do repositório>
+export GH_TOKEN=<token fine-grained com "Administration: Read and write">
 ./scripts/proteger-branch-main.sh BrunoAmathias/TechChallengerFiap-Execution
 ```
-
-O check `ci` só aparece para seleção depois da primeira execução do workflow (abra um PR antes).
 
 ## Deploy
 
