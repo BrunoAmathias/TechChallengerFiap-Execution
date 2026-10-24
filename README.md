@@ -93,6 +93,23 @@ npm run test:bdd
 npm run test:coverage   # todos os testes, inclusive integração com MongoDB em memória
 ```
 
+### Cobertura de testes
+
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=BrunoAmathias_TechChallengerFiap-Execution&metric=alert_status)](https://sonarcloud.io/summary/overall?id=BrunoAmathias_TechChallengerFiap-Execution)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BrunoAmathias_TechChallengerFiap-Execution&metric=coverage)](https://sonarcloud.io/component_measures?id=BrunoAmathias_TechChallengerFiap-Execution&metric=coverage)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=BrunoAmathias_TechChallengerFiap-Execution&metric=bugs)](https://sonarcloud.io/summary/overall?id=BrunoAmathias_TechChallengerFiap-Execution)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=BrunoAmathias_TechChallengerFiap-Execution&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=BrunoAmathias_TechChallengerFiap-Execution)
+
+Resultado de `npm run test:coverage` (todos os testes: unitários, BDD e integração com MongoDB replica set em memória), medido em 24/10/2026. O mínimo exigido pelo `jest.config.js` é 80% em todas as métricas:
+
+| Testes | Statements | Branches | Funções | Linhas |
+|---|---|---|---|---|
+| 77 (8 suítes) | 97,44% | 84,64% | 94,11% | 98,5% |
+
+- **Relatório no SonarCloud** (atualizado a cada deploy da `main`): [sonarcloud.io/summary/overall?id=BrunoAmathias_TechChallengerFiap-Execution](https://sonarcloud.io/summary/overall?id=BrunoAmathias_TechChallengerFiap-Execution).
+- **Relatório local por arquivo:** depois de `npm run test:coverage`, abra `coverage/lcov-report/index.html`.
+- **No CI:** a etapa "Testes ... com cobertura mínima de 80%" do job `ci` (aba Actions) mostra o resumo e falha se alguma métrica ficar abaixo de 80%.
+
 ### Secrets e variáveis do repositório (GitHub → Settings → Secrets and variables → Actions)
 
 | Nome | Tipo | Uso |
